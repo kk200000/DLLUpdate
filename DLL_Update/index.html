@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-click="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日检查</title>
+
+</head>
+
+<body>
+<div id="menu-bar">
+    <!--    <button onclick="openFile()">打开配置文件</button>-->
+    <el-menu
+            class="el-menu-demo"
+            mode="horizontal"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b">
+        <el-menu-item index="1" onclick="openFile()">打开配置文件</el-menu-item>
+        <el-submenu index="2">
+            <template slot="title">我的流水线</template>
+            <el-menu-item index="2-1"
+                          @click="open_url('https://devops.testplus.cn/console/pipeline/testplusweb/p-2b0c85a593e04b758e5f94647d8d3c28/history')">
+                测试环境 - 公用
+            </el-menu-item>
+            <el-menu-item index="2-2"
+                          @click=open_url("https://devops.testplus.cn/console/pipeline/testplusweb/p-1b202304e9c0484188e64e9061144038/history")>
+                测试环境 - 项目
+            </el-menu-item>
+            <el-menu-item index="2-3"
+                          @click=open_url("https://devops.testplus.cn/console/pipeline/testplusweb/p-6dc1f7a0066044299c2623e337e13614/history")>
+                正式环境 - 公用
+            </el-menu-item>
+            <el-menu-item index="2-4"
+                          @click=open_url("https://devops.testplus.cn/console/pipeline/testplusweb/p-4466418587c2478fb52e3833ed4a1bbd/history")>
+                正式环境 - 特殊
+            </el-menu-item>
+            <el-submenu index="2-4">
+                <template slot="title">文档查看</template>
+                <el-menu-item index="2-4-1"
+                              @click="open_url('https://d7n9vj8ces.feishu.cn/file/boxcnCJNVHHNZS68y2BQQgDFtoh')">
+                    双平台appKey文档
+                </el-menu-item>
+                <el-menu-item index="2-4-2"
+                              @click="open_url('https://d7n9vj8ces.feishu.cn/docs/doccnQXpYDFo2H0LdAuxDEgr1Ag')">流程文档
+                </el-menu-item>
+                <el-menu-item index="2-4-3"
+                              @click="open_url('https://d7n9vj8ces.feishu.cn/docs/doccnYR6vXjWfYiBDQqwtY6b2NQ')">安装包接口
+                </el-menu-item>
+                <el-menu-item index="2-4-4" @click="open_url('www.baidu.com')">规则接口</el-menu-item>
+            </el-submenu>
+        </el-submenu>
+        <el-menu-item index="3">打开检查工具</el-menu-item>
+    </el-menu>
+</div>
+
+
+<div id="btn_group">
+    <el-container style="border: 1px solid #eee">
+        <el-aside width="250px" style="background-color: rgb(238, 241, 246)">
+            <el-menu :default-openeds="['1', '3']">
+                <el-submenu index="1">
+                    <template slot="title"><i class="el-icon-message"></i>工具栏</template>
+                    <el-menu-item-group>
+                        <!--          <template slot="title">分组一</template>-->
+                        <el-menu-item id="changetext" index="1-1" onclick="GetIsCommon()">切换专用</el-menu-item>
+                        <el-menu-item index="1-2" :plain="true" @click="openPackage">我要更新安装包</el-menu-item>
+                        <el-menu-item index="1-3" :plain="true" @click="openRule">我要更新规则</el-menu-item>
+
+                    </el-menu-item-group>
+                </el-submenu>
+            </el-menu>
+        </el-aside>
+    </el-container>
+
+
+    <!--    选择哪条线-->
+    <el-container id="select">
+        <el-select v-model="value" placeholder="测试环境" v-on:change="getIsTest">
+            <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+        </el-select>
+    </el-container>
+
+
+</div>
+
+<div id="app">
+    <div id="table">
+        <table>
+            <thead>
+            <tr>
+                <th><input id="checkAll" type="checkbox"/></th>
+                <th id="appKey">appKey</th>
+                <th>Unity_Version</th>
+                <th style="width: 350px;">Define</th>
+                <th>FrameworkVersion</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="HandleGroup">
+    <el-button type="primary" name="createNew" onclick="AddRow(table,1)" @click="showAdd()">新增</el-button>
+    <el-button type="primary" name="Update" onclick="updateConfig()" @click="saved()">确认修改</el-button>
+    <el-popover
+    placement="top-start"
+    width="150"
+    trigger="hover">
+      规则&安装包：{{Environment}}    是否测试环境：{{IsTest}}
+    <el-button style="height: 50px" slot="reference" :plain="true" @click="startUpdateDLL();ClickCheckBox()">开始更新</el-button>
+  </el-popover>
+
+    <div style="line-height: 50px ">
+        <el-tooltip content="是否打开第三方上传" placement="top">
+            <el-switch
+                    v-model="is_upload"
+                    active-color="#13ce66"
+                    inactive-color="#ff4949"
+                    @change="changeUpload">
+            </el-switch>
+        </el-tooltip>
+    </div>
+
+    <div id="status-bar">
+        <i :class="show?'el-icon-caret-bottom':'el-icon-caret-right'" @click="cb">操作记录</i>
+        <el-collapse-transition>
+            <el-input id="input_text"
+                      v-if="show"
+                      clearable
+                      readonly
+                      type="textarea"
+                      placeholder="此处记录操作..."
+                      :autosize="{minRows: 4,maxRows:5}"
+                      v-model="textarea"
+            >
+            </el-input>
+        </el-collapse-transition>
+    </div>
+
+
+</div>
+
+
+<!-- 引入组件库 -->
+<link rel="stylesheet" href="index.css">
+<script src="./vue/vue.js"></script>
+<link rel="stylesheet" href="./element-ui/index.css">
+<script src="./element-ui/index.js"></script>
+
+<script type="text/javascript">
+    let checkList = []; //控制哪些被选中
+    let statusText = '';
+    let table = document.querySelector('table');
+    let checkAll = document.getElementById('checkAll'); // 全选/全不选
+    let chs = table.getElementsByTagName('input');  // table的所有其他复选框
+    // 给checkbox绑定click事件，获取chALL的状态(选中/非选中 即 this.checked)
+
+
+    checkAll.onclick = function () {
+        for (let i = 0; i < chs.length; i++) {
+            chs[i].checked = this.checked;
+        }
+
+    };
+
+    new Vue({
+        el: '#menu-bar',
+        methods: {
+            open_url(url) {
+                RPC.invoke('open_url', {url: url})
+            }
+        }
+    });
+
+    var CommonList = [];
+    var SpecialList = [];
+    var appkey = document.querySelector('#appKey');
+    var tbody = document.querySelector("tbody");
+
+
+
+    window.onload = init;
+    // 工具栏
+
+    let HandleGroup = new Vue({
+        el: '#HandleGroup',
+        data() {
+            return {
+                textarea: '',
+                show: true,
+                is_upload: true,
+
+                 // 控制环境选择
+                Environment:'Rule',
+                IsTest:true
+            }
+        },
+        methods: {
+            startUpdateDLL() {
+                let test = '测试环境 -';
+                let environment = this.Environment;
+                if (!this.IsTest) {
+                    test = '正式环境 -';
+                } else {
+                    test = '测试环境 -';
+                }
+
+                if (this.Environment == 'Package') {
+                    environment = '安装包检查';
+                }
+                this.$message('当前流水线： '.concat(test, environment));
+
+
+            },
+
+            ClickCheckBox() {
+                let Checkclass = document.getElementsByClassName('checkboxList');
+                let Check_value = [];
+                for (let i = 0; i < Checkclass.length; i++) {
+                    if (Checkclass[i].checked)
+                        Check_value.push(true);
+                    else {
+                        Check_value.push(false);
+                    }
+                }
+                checkList = Check_value;
+                let NeedUpdateList = [];
+                for (let i = 0; i < checkList.length; i++) {
+                    if (checkList[i]) {
+                        if (IsCommon) {
+                            NeedUpdateList.push(CommonList[i])
+                        } else {
+                            NeedUpdateList.push(SpecialList[i])
+                        }
+
+                    }
+                }
+                RPC.invoke("UpdateDLL", {NeedUpdateList: NeedUpdateList}).then(res => {
+                    getNowDate();
+                    if (IsCommon) {
+                        HandleGroup.textarea += `${newdate}` + '从Common表更新了' + NeedUpdateList.length + '条数据，' + res + '\n';
+                    } else {
+                        HandleGroup.textarea += `${newdate}` + '从Special表更新了' + NeedUpdateList.length + '条数据，' + res + '\n';
+                    }
+                    HandleGroup.addTextarea();
+                });
+
+
+            },
+
+            // 是否展示log
+            cb() {
+                this.show = !this.show;
+            },
+
+            saved() {   // 保存修改
+                getNowDate();
+                this.$message(newdate + '成功保存！ ');
+            },
+
+            showAdd() {
+                if (IsCommon) {
+                    this.$message('Common表新增一条！ ');
+                    this.textarea += `Common表新增一条！\n`;
+                } else {
+                    this.$message('Special表新增一条！ ');
+                    this.textarea += `Special表新增一条！\n`;
+                }
+
+            },
+
+            changeUpload(val) {
+                val = Boolean(val);
+                if (val) {
+                    this.$message('打开第三方上传！ ');
+                } else {
+                    this.$message('关闭第三方上传！ ');
+                }
+                RPC.invoke("getIsUpload", {upload: val})
+
+            },
+
+
+            addTextarea() {
+                this.$nextTick(() => {
+                    setTimeout(() => {
+                        const textarea = document.getElementById('input_text');
+                        textarea.scrollTop = textarea.scrollHeight;
+                    }, 20)
+                })
+            }
+
+        },
+
+    });
+
+    // 正式环境还是测试
+    let btn_group = new Vue({
+        el: '#btn_group',
+        data() {
+            return {
+                options: [{
+                    value: 'option1',
+                    label: '正式环境'
+                }, {
+                    value: 'option2',
+                    label: '测试环境'
+                }],
+                value: '',
+            }
+        },
+        methods: {
+            openPackage() {
+                getNowDate();
+                this.$message('当前是安装包检查');
+                HandleGroup.Environment = 'Package';
+                HandleGroup.textarea += newdate + '切换到安装包检查\n';
+                HandleGroup.addTextarea();
+                RPC.invoke("getIsRule", {res: HandleGroup.Environment});
+                console.log(HandleGroup.Environment);
+            },
+            openRule() {
+                getNowDate();
+                this.$message('当前是规则检查');
+                HandleGroup.Environment = 'Rule';
+                HandleGroup.textarea += newdate + '切换到规则检查\n';
+                HandleGroup.addTextarea();
+                RPC.invoke("getIsRule", {res: HandleGroup.Environment});
+                console.log(HandleGroup.Environment);
+            },
+
+
+            getIsTest(value) {
+                if (value == 'option1') {
+                    HandleGroup.IsTest = false;
+                    this.$message('切换到正式环境')
+                } else if (value == 'option2') {
+                    HandleGroup.IsTest = true;
+                    this.$message('切换到测试环境')
+                }
+                RPC.invoke("getIsTest", {Test: HandleGroup.IsTest}).then(() => {
+                    if (HandleGroup.IsTest) {
+                        HandleGroup.textarea += newdate + '切换到测试环境' + '\n';
+                        HandleGroup.addTextarea();
+                    } else {
+                        HandleGroup.textarea += newdate + '切换到正式环境' + '\n';
+                        HandleGroup.addTextarea();
+                    }
+
+                })
+            },
+
+
+        }
+    });
+
+
+    // 初始表格
+    function init() {
+        RPC.invoke("GetIsCommon", {Common: IsCommon}).then(res => {
+            let arr = Object.values(res);
+            CommonList = arr;
+            appkey.style.display = 'none';
+            SetTableData(CommonList);
+
+        });
+    }
+
+    // 打开文件
+    function openFile() {
+        RPC.invoke("open_file", {}).then(error => {
+            if (error) {
+                alert(error)
+            }
+        });
+    }
+    // 获取当前日期前先更新
+    var newdate = '';
+    function getNowDate() {
+        let date = new Date;
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
+        let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+        newdate = month + '月' + day + '日' + date.getHours() + "点" + date.getMinutes() + '分' + date.getSeconds() + '秒	';
+    }
+
+
+    var IsCommon = true;
+
+    // 切换Common表和Special表
+    function GetIsCommon() {
+        IsCommon = !IsCommon;
+        checkAll.checked = false;
+
+        let btnText = document.querySelector('#changetext');
+        RPC.invoke("GetIsCommon", {Common: IsCommon}).then(result => {
+            let arr = Object.values(result);
+            // 获取appKey 表头
+            if (IsCommon) {
+                // 表头处理
+                appkey.style.display = 'none';
+                CommonList = arr;
+                btnText.innerHTML = '切换专用';
+
+            } else {
+                appkey.style.display = 'table-cell';  // table-cell 是td th
+                SpecialList = arr;
+                btnText.innerHTML = '切换公用';
+
+            }
+            tbody.innerHTML = "";
+            // 给表格赋值
+            SetTableData(result)
+
+        });
+
+
+    }
+
+
+    // 删除按钮功能
+    function addDeleteBtn() {
+        var as = document.querySelectorAll("#deleteBtn");
+        for (let i = 0; i < as.length; i++) {
+            as[i].onclick = function () {
+                if (table.rows.length > 2) {   // 一条表头+剩下最少要有一条数据  =2
+                    if (!confirm('确定要执行此操作吗?')) {
+                        return false;
+                    }
+                    tbody.removeChild(this.parentNode.parentNode);
+                    getNowDate();
+                    if (IsCommon) {
+                        try {
+                            HandleGroup.textarea += `${newdate}` + '从Common表删除了' + CommonList[i]["Unity_Version"] + '\n';
+                        } catch (e) {
+                            // console.log(e);
+                        }
+                        CommonList.splice(i, 1);
+
+                    } else {
+                        try {
+                            HandleGroup.textarea += `${newdate}` + '从Special表删除了' + SpecialList[i]["appKey"] + '\n';
+                        } catch (e) {
+                            // console.log(e);
+                        }
+                        SpecialList.splice(i, 1);
+                    }
+
+
+                    updateConfig();        // 更新Config
+                } else {
+                    alert('最后一条数据无法删除哦!')
+                }
+
+            };
+
+
+        }
+    }
+
+    // 更新Config的（参数：index：int）
+    function updateConfig() {
+        let TableData = GetTableData(table);
+        if (IsCommon) {
+            CommonList = TableData;
+        } else {
+            SpecialList = TableData;
+        }
+
+        // 同步config
+        if (IsCommon) {
+            RPC.invoke("UpdateConfig", {changeList: CommonList});
+
+        } else {
+
+            RPC.invoke("UpdateConfig", {changeList: SpecialList});
+
+        }
+
+    }
+
+    // 给表格增加复选框（tr：哪一行）
+    function addCheckBox(tr) {
+        var input = "<td><input class='checkboxList' type='checkbox' onclick='checkALL()'></td>";
+        var td = document.createElement("td");
+        tr.appendChild(td);
+        td.innerHTML = input;
+
+    }
+
+
+    let Checkclass = document.getElementsByClassName('checkboxList');
+
+    function checkALL() {
+        checkList = [];
+        for (let i = 0; i < Checkclass.length; i++) {
+            checkList.push(Checkclass[i].checked)
+        }
+        if (checkList.every((val) => {
+            return val;
+        })) {
+            checkAll.checked = true;
+        } else {
+            checkAll.checked = false;
+        }
+    }
+
+
+    // 设置表的数据（参数：Object||Array）
+    function SetTableData(result) {
+        for (let i = 0; i < result.length; i++) {
+            let tr = document.createElement("tr");
+            // 设置是什么类型可选
+            tr.setAttribute('EditType', '"TextBox"');
+            tbody.appendChild(tr);
+            addCheckBox(tr);
+            for (let k in result[i])   //循环 列
+            {
+                let td = document.createElement("td");  //创建单元格
+                td.setAttribute('EditType', 'TextBox');
+                // 后续需要提取的name
+                switch (k) {
+                    case k:
+                        td.setAttribute('name', k);
+                }
+
+
+                tr.appendChild(td);
+                td.innerHTML = result[i][k]; //把数据给[i][k]给td
+            }
+
+            //4，创建有删除二字的<a>
+            let Deletetd = document.createElement("td");
+            tr.appendChild(Deletetd);
+            Deletetd.innerHTML = "<button id='deleteBtn'>删除</button> ";
+
+        }
+        // 给表格增加删除功能
+        addDeleteBtn();
+        SetTableCanEdit(table);
+    }
+
+
+    // window.addEventListener('test', (event) => {
+    //     console.log("receive message from python <-", event.data);
+    // });
+
+
+    // RPC.invoke("test", { msg: "hello python" }).then(response => {
+    //     console.log("send message to python ->", response);
+    // });
+
+    //设置表格是可编辑的
+    function SetTableCanEdit(table) {
+        // 延迟加载，保证数据加载完毕再进行编辑
+        setTimeout(() => {
+            for (let i = 1; i < table.rows.length; i++) {
+                SetRowCanEdit(table.rows[i]);
+            }
+        }, 500)
+
+    }
+
+    function SetRowCanEdit(row) {
+        for (let j = 0; j < row.cells.length; j++) {
+
+            //如果当前单元格指定了编辑类型，则表示允许编辑
+            let editType = row.cells[j].getAttribute("EditType");
+
+            if (!editType) {
+                //如果当前单元格没有指定，则查看当前列是否指定
+                editType = row.parentNode.rows[0].cells[j].getAttribute("EditType");
+            }
+            if (editType) {
+                row.cells[j].onclick = function () {
+                    EditCell(this);
+                }
+            }
+        }
+
+    }
+
+    //设置指定单元格可编辑
+    function EditCell(element, editType) {
+
+        var editType = element.getAttribute("EditType");
+        if (!editType) {
+            //如果当前单元格没有指定，则查看当前列是否指定
+            editType = element.parentNode.parentNode.rows[0].cells[element.cellIndex].getAttribute("EditType");
+        }
+
+        switch (editType) {
+            case "TextBox":
+                CreateTextBox(element, element.innerHTML);
+                break;
+            case "DropDownList":
+                CreateDropDownList(element);
+                break;
+            default:
+                break;
+        }
+    }
+
+    //为单元格创建可编辑输入框
+    function CreateTextBox(element, value) {
+        //检查编辑状态，如果已经是编辑状态，跳过
+        var editState = element.getAttribute("EditState");
+        if (editState != "true") {
+            //创建文本框
+            var textBox = document.createElement("INPUT");
+            textBox.type = "text";
+            textBox.className = "EditCell_TextBox";
+
+
+            //设置文本框当前值
+            if (!value) {
+                value = element.getAttribute("Value");
+            }
+            textBox.value = value;
+
+            //设置文本框的失去焦点事件
+            textBox.onblur = function () {
+                CancelEditCell(this.parentNode, this.value);
+            };
+            //向当前单元格添加文本框
+            ClearChild(element);
+            element.appendChild(textBox);
+            textBox.focus();
+            textBox.select();
+
+            //改变状态变量
+            element.setAttribute("EditState", "true");
+            element.parentNode.parentNode.setAttribute("CurrentRow", element.parentNode.rowIndex);
+        }
+    }
+
+    //为单元格创建选择框
+    function CreateDropDownList(element, value) {
+        //检查编辑状态，如果已经是编辑状态，跳过
+        var editState = element.getAttribute("EditState");
+        if (editState != "true") {
+            //创建下接框
+            var downList = document.createElement("Select");
+            downList.className = "EditCell_DropDownList";
+
+            //添加列表项
+            var items = element.getAttribute("DataItems");
+            if (!items) {
+                items = element.parentNode.parentNode.rows[0].cells[element.cellIndex].getAttribute("DataItems");
+            }
+
+            if (items) {
+                items = eval("[" + items + "]");
+                for (var i = 0; i < items.length; i++) {
+                    var oOption = document.createElement("OPTION");
+                    oOption.text = items[i].text;
+                    oOption.value = items[i].value;
+                    downList.options.add(oOption);
+                }
+            }
+
+            //设置列表当前值
+            if (!value) {
+                value = element.getAttribute("Value");
+            }
+            downList.value = value;
+
+            //设置创建下接框的失去焦点事件
+            downList.onblur = function () {
+                CancelEditCell(this.parentNode, this.value, this.options[this.selectedIndex].text);
+            }
+
+            //向当前单元格添加创建下接框
+            ClearChild(element);
+            element.appendChild(downList);
+            downList.focus();
+
+            //记录状态的改变
+            element.setAttribute("EditState", "true");
+            element.parentNode.parentNode.setAttribute("LastEditRow", element.parentNode.rowIndex);
+        }
+
+    }
+
+
+    //取消单元格编辑状态
+    function CancelEditCell(element, value, text) {
+        element.setAttribute("Value", value);
+        if (text) {
+            element.innerHTML = text;
+        } else {
+            element.innerHTML = value;
+        }
+        element.setAttribute("EditState", "false");
+
+        //检查是否有公式计算
+        CheckExpression(element.parentNode);
+    }
+
+    //清空指定对象的所有字节点
+    function ClearChild(element) {
+        element.innerHTML = "";
+    }
+
+    //添加行
+    function AddRow(table, index) {
+        var lastRow = table.rows[table.rows.length - 1];
+        var newRow = lastRow.cloneNode(true);
+
+        table.tBodies[0].appendChild(newRow);
+        SetRowCanEdit(newRow);
+        // 新增后补充按钮功能
+        addDeleteBtn();
+        if (IsCommon) {
+            CommonList.push(CommonList[CommonList.length])
+        } else {
+            SpecialList.push(SpecialList[SpecialList.length])
+        }
+        updateConfig();
+        return newRow;
+
+    }
+
+
+    //提取表格的值,JSON格式
+    function GetTableData(table) {
+        let tableData = [];
+        for (let i = 1; i < table.rows.length; i++) {
+            tableData.push(GetRowData(table.rows[i]));
+        }
+
+        return tableData;
+
+    }
+
+    //提取指定行的数据，JSON格式
+    function GetRowData(row) {
+        let rowData = {};
+        for (var j = 0; j < row.cells.length; j++) {
+            let name = row.parentNode.rows[0].cells[j].getAttribute("Name");
+            if (name) {
+                let value = row.cells[j].getAttribute("Value");
+                if (!value) {
+                    value = row.cells[j].innerHTML;
+                }
+
+                rowData[name] = value;
+            }
+        }
+        //alert("ProductName:" + rowData.ProductName);
+        //或者这样：alert("ProductName:" + rowData["ProductName"]);
+        return rowData;
+
+    }
+
+    //检查当前数据行中需要运行的字段
+    function CheckExpression(row) {
+        for (var j = 0; j < row.cells.length; j++) {
+            expn = row.parentNode.rows[0].cells[j].getAttribute("Expression");
+            //如指定了公式则要求计算
+            if (expn) {
+                var result = Expression(row, expn);
+                var format = row.parentNode.rows[0].cells[j].getAttribute("Format");
+                if (format) {
+                    //如指定了格式，进行字值格式化
+                    row.cells[j].innerHTML = formatNumber(Expression(row, expn), format);
+                } else {
+                    row.cells[j].innerHTML = Expression(row, expn);
+                }
+            }
+
+        }
+    }
+
+    //计算需要运算的字段
+    function Expression(row, expn) {
+        var rowData = GetRowData(row);
+        //循环代值计算
+        for (var j = 0; j < row.cells.length; j++) {
+            let name = row.parentNode.rows[0].cells[j].getAttribute("Name");
+            if (name) {
+                var reg = new RegExp(name, "i");
+                expn = expn.replace(reg, rowData[name].replace(/\,/g, ""));
+            }
+        }
+        return eval(expn);
+    }
+
+    function formatNumber(num, pattern) {
+        var strarr = num ? num.toString().split('.') : ['0'];
+        var fmtarr = pattern ? pattern.split('.') : [''];
+        var retstr = '';
+
+        // 整数部分
+        var str = strarr[0];
+        var fmt = fmtarr[0];
+        var i = str.length - 1;
+        var comma = false;
+        for (var f = fmt.length - 1; f >= 0; f--) {
+            switch (fmt.substr(f, 1)) {
+                case '#':
+                    if (i >= 0) retstr = str.substr(i--, 1) + retstr;
+                    break;
+                case '0':
+                    if (i >= 0) retstr = str.substr(i--, 1) + retstr;
+                    else retstr = '0' + retstr;
+                    break;
+                case ',':
+                    comma = true;
+                    retstr = ',' + retstr;
+                    break;
+            }
+        }
+        if (i >= 0) {
+            if (comma) {
+                var l = str.length;
+                for (; i >= 0; i--) {
+                    retstr = str.substr(i, 1) + retstr;
+                    if (i > 0 && ((l - i) % 3) == 0) retstr = ',' + retstr;
+                }
+            } else retstr = str.substr(0, i + 1) + retstr;
+        }
+
+        retstr = retstr + '.';
+        // 处理小数部分
+        str = strarr.length > 1 ? strarr[1] : '';
+        fmt = fmtarr.length > 1 ? fmtarr[1] : '';
+        i = 0;
+        for (var f = 0; f < fmt.length; f++) {
+            switch (fmt.substr(f, 1)) {
+                case '#':
+                    if (i < str.length) retstr += str.substr(i++, 1);
+                    break;
+                case '0':
+                    if (i < str.length) retstr += str.substr(i++, 1);
+                    else retstr += '0';
+                    break;
+            }
+        }
+        return retstr.replace(/^,+/, '').replace(/\.$/, '');
+    }
+
+
+</script>
+
+
+</body>
+</html>
