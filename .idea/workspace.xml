@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e3d2d47b-3bf4-4a3f-b083-9d64a583072e" name="Default Changelist" comment="" />
+    <list default="true" id="e3d2d47b-3bf4-4a3f-b083-9d64a583072e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DLL_Update/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/DLL_Update/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DLL_Update/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/DLL_Update/config/config.json" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,11 +35,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DLL_Update/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="79" column="59" lean-forward="true" selection-start-line="79" selection-start-column="59" selection-end-line="79" selection-end-column="59" />
+            <state relative-caret-position="149">
+              <caret line="107" column="57" lean-forward="true" selection-start-line="107" selection-start-column="57" selection-end-line="107" selection-end-column="57" />
               <folding>
                 <element signature="e#24#38#0" expanded="true" />
+                <element signature="e#2161#2222#0" />
+                <element signature="e#2249#2314#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="63" selection-start-column="63" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -115,6 +131,9 @@
       <find>IsTest</find>
     </findStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -148,8 +167,9 @@
         <option value="$PROJECT_DIR$/DLL_Update/button.css" />
         <option value="$USER_HOME$/AppData/Roaming/MobaXterm/slash/RemoteFiles/4264174_2_2/CombineDLL.py" />
         <option value="$PROJECT_DIR$/DLL_Update/index.css" />
-        <option value="$PROJECT_DIR$/DLL_Update/app.py" />
         <option value="$PROJECT_DIR$/DLL_Update/index.html" />
+        <option value="$PROJECT_DIR$/../test.py" />
+        <option value="$PROJECT_DIR$/DLL_Update/app.py" />
       </list>
     </option>
   </component>
@@ -164,12 +184,12 @@
     <option name="width" value="736" />
     <option name="height" value="876" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -192,10 +212,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/DLL_Update/element-ui/fonts" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -376,12 +398,13 @@
       <workItem from="1640048984373" duration="10634000" />
       <workItem from="1640136846708" duration="65023000" />
       <workItem from="1640569079957" duration="83174000" />
-      <workItem from="1641260985613" duration="1895000" />
+      <workItem from="1641260985613" duration="5789000" />
+      <workItem from="1641353859269" duration="488000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="320328000" />
+    <option name="totallyTimeSpent" value="324710000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -396,12 +419,12 @@
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49799198" visible="true" weight="0.12965617" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49799198" visible="true" weight="0.13108882" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.502008" side_tool="true" weight="0.1282235" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32974428" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49928367" visible="true" weight="0.32974428" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49928367" visible="true" weight="0.3301887" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39973083" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -452,18 +475,11 @@
     <SUITE FILE_PATH="coverage/DLL$webview.coverage" NAME="webview Coverage Results" MODIFIED="1639533340438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/site-packages/mmgui" />
     <SUITE FILE_PATH="coverage/DLL$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1639539101810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/site-packages/mmgui" />
     <SUITE FILE_PATH="coverage/DLL$a.coverage" NAME="a Coverage Results" MODIFIED="1639448162466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.." />
-    <SUITE FILE_PATH="coverage/DLL$app__2_.coverage" NAME="app (2) Coverage Results" MODIFIED="1641285720585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DLL_Update" />
+    <SUITE FILE_PATH="coverage/DLL$app__2_.coverage" NAME="app (2) Coverage Results" MODIFIED="1641353961546" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DLL_Update" />
     <SUITE FILE_PATH="coverage/DLL$DLLMainWindow.coverage" NAME="DLLMainWindow Coverage Results" MODIFIED="1639041425583" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/DLL$app.coverage" NAME="app Coverage Results" MODIFIED="1639540436845" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mmgui_test" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/core-scripting.rnc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="213" column="50" lean-forward="true" selection-start-line="213" selection-start-column="50" selection-end-line="213" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Roaming/MobaXterm/slash/RemoteFiles/462002_2_1/ResourceAnalyer_build.py" />
     <entry file="file://$USER_HOME$/AppData/Roaming/MobaXterm/slash/RemoteFiles/462002_2_3/ResourceAnalyer_build.py" />
     <entry file="file://$USER_HOME$/AppData/Roaming/MobaXterm/slash/RemoteFiles/462002_2_4/ResourceAnalyer_build.py" />
@@ -536,16 +552,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/AppData/Roaming/MobaXterm/slash/RemoteFiles/1838030_2_0/AssetsCheck_build.py" />
-    <entry file="file://$PROJECT_DIR$/../AssetsCheck(现在版本).py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Roaming/MobaXterm/slash/RemoteFiles/1838030_2_3/CombineDLL.py" />
     <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/1973159458/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -557,13 +563,6 @@
     <entry file="file://$USER_HOME$/AppData/Roaming/MobaXterm/slash/RemoteFiles/1838030_2_1/CombineDLL.py" />
     <entry file="file://$USER_HOME$/AppData/Roaming/MobaXterm/slash/RemoteFiles/1838030_2_5/ResourceAnalyer_build.py" />
     <entry file="file://$USER_HOME$/AppData/Roaming/MobaXterm/slash/RemoteFiles/1838030_2_6/ResourceAnalyer_build.py" />
-    <entry file="file://$PROJECT_DIR$/../CombineDLL.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/subprocess.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
@@ -648,10 +647,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DLL_Update/index.css">
+    <entry file="file://$PROJECT_DIR$/../AssetsCheck(现在版本).py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="68" column="12" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="12" />
+        <state relative-caret-position="237">
+          <caret line="130" column="46" lean-forward="true" selection-start-line="130" selection-start-column="46" selection-end-line="130" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../CombineDLL.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DLL_Update/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="107" column="57" lean-forward="true" selection-start-line="107" selection-start-column="57" selection-end-line="107" selection-end-column="57" />
+          <folding>
+            <element signature="e#24#38#0" expanded="true" />
+            <element signature="e#2161#2222#0" />
+            <element signature="e#2249#2314#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="63" selection-start-column="63" selection-end-column="63" />
         </state>
       </provider>
     </entry>
@@ -674,13 +702,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DLL_Update/app.py">
+    <entry file="file://$PROJECT_DIR$/DLL_Update/index.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="79" column="59" lean-forward="true" selection-start-line="79" selection-start-column="59" selection-end-line="79" selection-end-column="59" />
-          <folding>
-            <element signature="e#24#38#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1496">
+          <caret line="68" column="12" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="12" />
         </state>
       </provider>
     </entry>

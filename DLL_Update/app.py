@@ -68,6 +68,7 @@ def getIsRule(res):
     global Environment
     Environment = res
 
+
 testCommonID = '0a6fc6049a2f4544bddeba78a4f28520'   # test公用
 testSpecialID = 'cb0f911602d64d77ad94eebb754ee8e1'  # test特殊
 
@@ -93,13 +94,13 @@ def UpdateDLL(NeedUpdateList):
             SpecialID = formalSpecialID
 
         for item in NeedUpdateList:
-                print(item)
-                FrameworkVersion = item["FrameworkVersion"]
-                Unity_Version = item["Unity_Version"]
-                Define = item["Define"]
-                if Environment == 'Package':    # Environment 控制IsRule
-                    IsRule='false'
-                if IsCommon:
+            print(item)
+            FrameworkVersion = item["FrameworkVersion"]
+            Unity_Version = item["Unity_Version"]
+            Define = item["Define"]
+            if Environment == 'Package':    # Environment 控制IsRule
+                IsRule='false'
+            if IsCommon:
                     QueryData = " \"{\\" + f'"FrameworkVersion\\":\\"{FrameworkVersion}\\",\\"unity_version\\":\\"{Unity_Version}\\",\\"Define\\":\\"{Define}\\",\\"is_rule\\":{IsRule},\\"is_upload_dll\\":{IsUpload}' + '}"'
                     TestCommonCMD = f'curl -X POST https://devops.testplus.cn/ms/process/api/external/pipelines/{CommonID}/build -H "Content-Type: application/json" -d' + QueryData
                     print(TestCommonCMD)
@@ -110,9 +111,9 @@ def UpdateDLL(NeedUpdateList):
                     else:
                         failure = failure+1
 
-                else:
+            else:
                     appKey=item["appKey"]
-                    QueryData = " \"{\\" + f'"Appkey\\":\\"{appKey}\\",\\"FrameworkVersion\\":\\"{FrameworkVersion}\\",\\"unity_version\\":\\"{Unity_Version}\\",\\"Define\\":\\"{Define}\\",\\"any_type\\":{IsRule} '+'}"'
+                    QueryData = " \"{\\" + f'"Appkey\\":\\"{appKey}\\",\\"FrameworkVersion\\":\\"{FrameworkVersion}\\",\\"unity_version\\":\\"{Unity_Version}\\",\\"Define\\":\\"{Define}\\",\\"is_rule\\":{IsRule} '+'}"'
                     TestSpecialCMD = f'curl -X POST https://devops.testplus.cn/ms/process/api/external/pipelines/{SpecialID}/build -H "Content-Type:application/json" -d' + QueryData
                     print(TestSpecialCMD)
                     result = subprocess.Popen(TestSpecialCMD,shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
