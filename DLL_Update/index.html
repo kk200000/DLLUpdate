@@ -50,7 +50,7 @@
                 <el-menu-item index="2-4-4" @click="open_url('www.baidu.com')">规则接口</el-menu-item>
             </el-submenu>
         </el-submenu>
-        <el-menu-item index="3">打开检查工具</el-menu-item>
+        <el-menu-item index="3" @click="open_check()">打开检查工具</el-menu-item>
     </el-menu>
 </div>
 
@@ -154,7 +154,7 @@
 
 
 <!-- 引入组件库 -->
-<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="css/index.css">
 <script src="./vue/vue.js"></script>
 <link rel="stylesheet" href="./element-ui/index.css">
 <script src="./element-ui/index.js"></script>
@@ -180,6 +180,9 @@
         methods: {
             open_url(url) {
                 RPC.invoke('open_url', {url: url})
+            },
+            open_check(){
+                RPC.invoke('open_check')
             }
         }
     });

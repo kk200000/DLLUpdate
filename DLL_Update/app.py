@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys, os
+from PyQt5 import sip
+from PyQt5 import QtNetwork,QtWebEngineCore,QtPrintSupport
+from mmgui.asyncqt import run_on_ui_thread
 from mmgui import App, BrowserWindow
 import json
 import subprocess
@@ -13,12 +16,17 @@ config_path = './config/config.json'
 # 构建BrowserWindow
 app = App(headless=False)
 win = None
+
+
 CommonList = []
 SpecialList = []
 
 Environment = 'Rule'  # 安装包还是规则
 IsTest = True  # 默认测试环境
 IsUpload = 'true'
+
+check_win=None
+
 
 def open_url(url):
     webbrowser.open(url)
@@ -30,7 +38,7 @@ def on_create(ctx):
         "title": "DLL更新工具",
         "width": 1250,
         "height": 720,
-        "dev_mode": True
+        # "dev_mode": True
     })
 
     # 注册函数到JS层
@@ -42,9 +50,30 @@ def on_create(ctx):
     win.webview.bind_function("getIsUpload", getIsUpload)  # 获取其他更新数据
     win.webview.bind_function("getIsTest", getIsTest)  # 获取其他更新数据
     win.webview.bind_function("open_url", open_url)  # 获取其他更新数据
+    win.webview.bind_function("open_check", open_window)  # 获取其他更新数据
 
     win.webview.load_file(os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html"))
-    win.show()
+    # 测试CheckPage
+    win.webview.bind_function("open_check", open_DLLCheck())
+    # win.show()
+
+
+@run_on_ui_thread                                        # 打开窗口加上装饰器 @run_on_ui_thread
+def open_DLLCheck():
+    global check_win
+    check_win = BrowserWindow({
+        "title": "DLL检查工具",
+        "width": 1280,
+        "height": 750,
+        "dev_mode": True
+    })
+    check_win.webview.load_file(os.path.join(os.path.dirname(os.path.abspath(__file__)), "CheckPage.html"))
+    check_win.show()
+
+
+def open_window():
+    global win
+    win.webview.bind_function("open_check", open_DLLCheck())  # 打开DLL检查工具
 
 
 # 监听是否测试环境
@@ -69,12 +98,12 @@ def getIsRule(res):
     Environment = res
 
 
-testCommonID = '0a6fc6049a2f4544bddeba78a4f28520'   # test公用
-testSpecialID = 'cb0f911602d64d77ad94eebb754ee8e1'  # test特殊
+# testCommonID = '0a6fc6049a2f4544bddeba78a4f28520'   # test公用
+# testSpecialID = 'cb0f911602d64d77ad94eebb754ee8e1'  # test特殊
 
 
-# testCommonID = 'df6c1f6867674a448c2af3ebc07ffb2e'   # 测试环境的公用
-# testSpecialID = '2f7170fe12694b32b010eaf0afa68613'  # 测试环境的特殊
+testCommonID = 'df6c1f6867674a448c2af3ebc07ffb2e'   # 测试环境的公用
+testSpecialID = '2f7170fe12694b32b010eaf0afa68613'  # 测试环境的特殊
 
 
 formalCommonID = '093687d7efab4bff937bf5079f2c9537'   # 正式环境的公用
@@ -92,7 +121,7 @@ def UpdateDLL(NeedUpdateList):
         else:
             CommonID = formalCommonID
             SpecialID = formalSpecialID
-
+        # 遍历每个元素的
         for item in NeedUpdateList:
             print(item)
             FrameworkVersion = item["FrameworkVersion"]
@@ -145,7 +174,7 @@ def load_config():
     SpecialList = (list)(load_config["special"])
 
 
-# 控制取反从而决定给什么数据
+# 控制给什么数据
 def GetIsCommon(Common):
     global IsCommon
     IsCommon = Common

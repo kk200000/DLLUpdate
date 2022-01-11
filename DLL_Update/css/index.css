@@ -1,0 +1,155 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #909399;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#btn_group {
+    --btnWidth: 80px;
+    width: var(--btnWidth);
+
+    display: flex;
+    flex: 1;
+    /*border: 1px white solid;*/
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--btnWidth);
+    margin-left: 100px;
+}
+
+#btn_group button:hover {
+    color: deeppink;
+}
+
+#deleteBtn,
+#deleteBtn-flat {
+    height: 50%;
+    width:60%;
+    min-width: 30px;
+    border-radius: 6px;
+    background-color: #FF4351;
+    border-color: #FF4351;
+    color: #FFF; }
+  #deleteBtn:visited,
+  #deleteBtn-flat:visited {
+    color: #FFF; }
+  #deleteBtn:hover, #deleteBtn:focus,
+  #deleteBtn-flat:hover,
+  #deleteBtn-flat:focus {
+    background-color: #ff7680;
+    border-color: #ff7680;
+    color: #FFF; }
+  #deleteBtn:active, #deleteBtn.active, #deleteBtn.is-active,
+  #deleteBtn-flat:active,
+  #deleteBtn-flat.active,
+  #deleteBtn-flat.is-active {
+    background-color: #f64c59;
+    border-color: #f64c59;
+    color: #ff1022; }
+
+
+
+
+
+
+#status-bar{
+    position: fixed;
+    top: 78%;
+    left: 10px;
+    width: 60%;
+    z-index: 1;
+
+}
+
+#HandleGroup {
+    /*border: 1px solid black;*/
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    right: 60px;
+    bottom: 9%;
+    width: 400px;
+}
+
+#table {
+    position: absolute;
+    left: 300px;
+    top: 100px;
+    overflow-y: auto;
+    height: 460px;
+    margin-right: 90px;
+}
+
+table {
+    margin: 0 auto;
+    text-align: center;
+    font-family: verdana, arial, sans-serif;
+    font-size: 11px;
+    color: white;
+    border-width: 1px;
+    border-color: #a9c6c9;
+    /*border-collapse: collapse;*/
+    /*width: 800px;*/
+
+}
+
+
+thead tr {
+    /*height:30px;*/
+    width: 90px;
+    background-color: #cccccc;
+}
+
+table th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #c0c0c0;
+    color: #000;
+}
+
+table td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+
+
+/* 需要修改可编辑样式在这里 */
+.EditCell_TextBox {
+    width: 90%;
+    border: 1px solid #0099CC;
+}
+
+/* 下拉框 */
+.EditCell_DropDownList {
+    width: 90%;
+}
+
+#select{
+    position: absolute;
+    right: 80px;
+    top: 10px;
+}
+a{
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/*Element UI*/
+.el-header {
+    background-color: #B3C0D1;
+    color: #333;
+    line-height: 60px;
+}
+
+.el-aside {
+    color: #333;
+}
