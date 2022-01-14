@@ -51,7 +51,7 @@
 
             <template slot-scope="scope">
                 <el-input v-if="scope.row.edit" v-model="scope.row.Unity_Version"
-                          @blur="leaveCell(scope.row)" v-focus></el-input>
+                          @blur="leaveCell(scope.row)"></el-input>
                 <span v-else>{{ scope.row.Unity_Version }}</span>
             </template>
 
@@ -101,7 +101,7 @@
 
     <el-button @click="Open_DLLUpdate">打开DLL更新工具</el-button>
     <el-button @click="SaveTable">保存</el-button>
-    <el-button @click="nextStep">下一步</el-button>
+    <el-button @click="nextStep" :disabled="isEditing">下一步</el-button>
 </div>
 </body>
 
@@ -124,6 +124,7 @@
         el: '#app',
         data() {
             return {
+                isEditing:false,
                 active: 0,
                 tableData: [],
                 NeedSearch: [],
@@ -160,13 +161,13 @@
                 for (const i of this.tableData) {
                     if (i.edit) return this.$message.warning('请先保存当前编辑项')
                 }
-                let newrow = {
+                let newRow = {
                     "appKey": row.appKey,
                     "Unity_Version": row.Unity_Version,
                     "Belong": row.Belong,
                     "edit": false
                 };
-                this.tableData.push(newrow);
+                this.tableData.push(newRow);
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
@@ -179,8 +180,8 @@
             },
 
             leaveCell(row) {            // 离开单元格获取行，如需实时保存改这里
-                // row.edit = false;
-                // console.log("离开了单元格");
+                row.edit = false;
+                this.isEditing = false;
             },
 
             // 控制表格编辑
@@ -189,6 +190,7 @@
                     if (i.edit) return this.$message.warning('请先保存当前编辑项')
                 }
                 row.edit = true;
+                this.isEditing = true;
             },
 
             handleDelete(index, row) {
@@ -199,7 +201,8 @@
                 this.tableData.forEach((item) => {
                     item.edit = false;
                 });
-                this.key++;         // Key增加以更新表格 具体看Vue官网
+                // this.key++;         // Key增加以更新表格 具体看Vue官网   两种方案都可行，看你们喜欢
+                this.$forceUpdate();
                 RPC.invoke('SaveDataList', {DList: this.tableData});
 
                 this.$message({
