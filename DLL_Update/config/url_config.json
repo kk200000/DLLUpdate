@@ -1,0 +1,12 @@
+{
+      "Packages":{
+        "test":"http://10.11.82.77:8787/resource/download/project/file",
+        "formal":"http://10.11.11.61/resource/download/project/file",
+        "outer":"http://test.perfcatnginx.testplus.cn/resource/download/project/file"
+    },
+    "Rule":{
+        "test":"http://10.11.66.233/v1/api/download/project/update/file",
+        "formal":"http://10.11.82.74/v1/api/download/project/update/file",
+        "outer":"http://test.perfcatnginx.testplus.cn/v1/api/download/project/update/file"
+    }
+}

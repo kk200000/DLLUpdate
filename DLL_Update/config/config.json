@@ -1,1 +1,132 @@
-{"common": [{"Unity_Version": "2020.3.4", "Define": "-define:UNITY_EDITOR_WIN -define:UNITY_2019_1_OR_NEWER", "FrameworkVersion": "4.5"}, {"Unity_Version": "2020.3.4", "Define": "-define:UNITY_EDITOR_WIN -define:UNITY_2019_1_OR_NEWER -define:NET_4_6 -define:UNITY_2018_3_OR_NEWER -define:NET_4_6 -define:UNITY_2018_3_OR_NEWER", "FrameworkVersion": "4.5"}, {"Unity_Version": "2018.4.2", "Define": "-define:UNITY_EDITOR_WIN21312", "FrameworkVersion": "4.5"}, {"Unity_Version": "2018.4.1", "Define": "-define:UNITY_EDITOR_WIN", "FrameworkVersion": "4.5"}, {"Unity_Version": "2018.4.1", "Define": "-define:UNITY_EDITOR_WIN", "FrameworkVersion": "4.5"}, {"Unity_Version": "2018.4.1", "Define": "-define:UNITY_EDITOR_WIN", "FrameworkVersion": "4.5"}, {"Unity_Version": "2018.4.1", "Define": "-define:UNITY_EDITOR_WIN", "FrameworkVersion": "4.5"}, {"Unity_Version": "2018.4.1", "Define": "-define:UNITY_EDITOR_WIN", "FrameworkVersion": "4.5"}, {"Unity_Version": "2018.4.1", "Define": "-define:UNITY_EDITOR_WIN", "FrameworkVersion": "4.5"}, {"Unity_Version": "2018.4.1", "Define": "-define:UNITY_EDITOR_WIN", "FrameworkVersion": "4.5"}, {"Unity_Version": "2018.4.1", "Define": "-define:UNITY_EDITOR_WIN", "FrameworkVersion": "4.5"}, {"Unity_Version": "2018.4.1", "Define": "-define:UNITY_EDITOR_WIN", "FrameworkVersion": "4.5"}], "special": [{"appKey": "abyss", "Unity_Version": "2019.3.4", "Define": "-define:UNITY_2019 -define:UNITY_2018_2_OR_NEWER -define:UNITY_2018_3_OR_NEWER -define:UNITY_2018_4_OR_NEWER -define:UNITY_2019_1_OR_NEWER -define:UNITY_2019_2_OR_NEWER -define:UNITY_2019_3_OR_NEWER -define:UNITY_EDITOR -define:ADDRESSABLE", "FrameworkVersion": "4.5"}, {"appKey": "jx1pocket", "Unity_Version": "2019.4.1", "Define": "-define:UNITY_2019", "FrameworkVersion": "4.5"}, {"appKey": "mecha", "Unity_Version": "2020.3.2", "Define": "-define:UNITY_2020_1_OR_NEWER -define:UNITY_2019 -define:UNITY_2018_2_OR_NEWER -define:UNITY_2018_3_OR_NEWER -define:UNITY_2018_4_OR_NEWER -define:UNITY_2019_1_OR_NEWER -define:UNITY_2019_2_OR_NEWER -define:UNITY_2019_3_OR_NEWER -define:UNITY_EDITOR -define:ADDRESSABLE", "FrameworkVersion": "4.5"}, {"appKey": "overlordtactic", "Unity_Version": "2020.3.4", "Define": "-define:UNITY_2020_1_OR_NEWER -define:UNITY_2019 -define:UNITY_2018_2_OR_NEWER -define:UNITY_2018_3_OR_NEWER -define:UNITY_2018_4_OR_NEWER -define:UNITY_2019_1_OR_NEWER -define:UNITY_2019_2_OR_NEWER -define:UNITY_2019_3_OR_NEWER -define:UNITY_EDITOR -define:ADDRESSABLE", "FrameworkVersion": "4.5"}, {"appKey": "RS", "Unity_Version": "2019.4.3", "Define": "-define:UNITY_2019 -define:UNITY_2018_2_OR_NEWER -define:UNITY_2018_3_OR_NEWER -define:UNITY_2018_4_OR_NEWER -define:UNITY_2019_1_OR_NEWER -define:UNITY_2019_2_OR_NEWER -define:UNITY_2019_3_OR_NEWER -define:UNITY_EDITOR -define:ADDRESSABLE", "FrameworkVersion": "4.5"}, {"appKey": "jx3sim", "Unity_Version": "2019.4.1", "Define": "-define:UNITY_2019", "FrameworkVersion": "4.5"}, {"appKey": "glaze", "Unity_Version": "2021.2.0", "Define": "-define:UNITY_2019 -define:UNITY_2020_1_OR_NEWER", "FrameworkVersion": "4.5"}, {"appKey": "projectcat", "Unity_Version": "2019.4.1", "Define": "-define:UNITY_2019 -define:UNITY_2018_2_OR_NEWER -define:UNITY_2018_3_OR_NEWER -define:UNITY_2018_4_OR_NEWER -define:UNITY_2019_1_OR_NEWER -define:UNITY_2019_2_OR_NEWER -define:UNITY_2019_3_OR_NEWER -define:UNITY_EDITOR -define:ADDRESSABLE", "FrameworkVersion": "4.5"}, {"appKey": "blackforest", "Unity_Version": "2019.3.6", "Define": "-define:UNITY_2019", "FrameworkVersion": "4.5"}, {"appKey": "jxsjorigin", "Unity_Version": "2021.1.2", "Define": "-define:UNITY_2020_1_OR_NEWER", "FrameworkVersion": "4.5"}, {"appKey": "jxsj3", "Unity_Version": "2019.4.3", "Define": "-define:UNITY_2019", "FrameworkVersion": "4.5"}]}
+{
+  "common": [
+    {
+      "Unity_Version": "2020.3.4",
+      "Define": "-define:UNITY_EDITOR_WIN -define:UNITY_2019_1_OR_NEWER",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "Unity_Version": "2020.3.4",
+      "Define": "-define:UNITY_EDITOR_WIN -define:UNITY_2019_1_OR_NEWER -define:NET_4_6 -define:UNITY_2018_3_OR_NEWER -define:NET_4_6 -define:UNITY_2018_3_OR_NEWER",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "Unity_Version": "2018.4.2",
+      "Define": "-define:UNITY_EDITOR_WIN21312",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "Unity_Version": "2018.4.1",
+      "Define": "-define:UNITY_EDITOR_WIN",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "Unity_Version": "2018.4.1",
+      "Define": "-define:UNITY_EDITOR_WIN",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "Unity_Version": "2018.4.1",
+      "Define": "-define:UNITY_EDITOR_WIN",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "Unity_Version": "2018.4.1",
+      "Define": "-define:UNITY_EDITOR_WIN",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "Unity_Version": "2018.4.1",
+      "Define": "-define:UNITY_EDITOR_WIN",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "Unity_Version": "2018.4.1",
+      "Define": "-define:UNITY_EDITOR_WIN",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "Unity_Version": "2018.4.1",
+      "Define": "-define:UNITY_EDITOR_WIN",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "Unity_Version": "2018.4.1",
+      "Define": "-define:UNITY_EDITOR_WIN",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "Unity_Version": "2018.4.1",
+      "Define": "-define:UNITY_EDITOR_WIN",
+      "FrameworkVersion": "4.5"
+    }
+  ],
+  "special": [
+    {
+      "appKey": "abyss",
+      "Unity_Version": "2019.3.4",
+      "Define": "-define:UNITY_2019 -define:UNITY_2018_2_OR_NEWER -define:UNITY_2018_3_OR_NEWER -define:UNITY_2018_4_OR_NEWER -define:UNITY_2019_1_OR_NEWER -define:UNITY_2019_2_OR_NEWER -define:UNITY_2019_3_OR_NEWER -define:UNITY_EDITOR -define:ADDRESSABLE",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "appKey": "jx1pocket",
+      "Unity_Version": "2019.4.1",
+      "Define": "-define:UNITY_2019",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "appKey": "mecha",
+      "Unity_Version": "2020.3.2",
+      "Define": "-define:UNITY_2020_1_OR_NEWER -define:UNITY_2019 -define:UNITY_2018_2_OR_NEWER -define:UNITY_2018_3_OR_NEWER -define:UNITY_2018_4_OR_NEWER -define:UNITY_2019_1_OR_NEWER -define:UNITY_2019_2_OR_NEWER -define:UNITY_2019_3_OR_NEWER -define:UNITY_EDITOR -define:ADDRESSABLE",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "appKey": "overlordtactic",
+      "Unity_Version": "2020.3.4",
+      "Define": "-define:UNITY_2020_1_OR_NEWER -define:UNITY_2019 -define:UNITY_2018_2_OR_NEWER -define:UNITY_2018_3_OR_NEWER -define:UNITY_2018_4_OR_NEWER -define:UNITY_2019_1_OR_NEWER -define:UNITY_2019_2_OR_NEWER -define:UNITY_2019_3_OR_NEWER -define:UNITY_EDITOR -define:ADDRESSABLE",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "appKey": "RS",
+      "Unity_Version": "2019.4.3",
+      "Define": "-define:UNITY_2019 -define:UNITY_2018_2_OR_NEWER -define:UNITY_2018_3_OR_NEWER -define:UNITY_2018_4_OR_NEWER -define:UNITY_2019_1_OR_NEWER -define:UNITY_2019_2_OR_NEWER -define:UNITY_2019_3_OR_NEWER -define:UNITY_EDITOR -define:ADDRESSABLE",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "appKey": "jx3sim",
+      "Unity_Version": "2019.4.1",
+      "Define": "-define:UNITY_2019",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "appKey": "glaze",
+      "Unity_Version": "2021.2.0",
+      "Define": "-define:UNITY_2019 -define:UNITY_2020_1_OR_NEWER",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "appKey": "projectcat",
+      "Unity_Version": "2019.4.1",
+      "Define": "-define:UNITY_2019 -define:UNITY_2018_2_OR_NEWER -define:UNITY_2018_3_OR_NEWER -define:UNITY_2018_4_OR_NEWER -define:UNITY_2019_1_OR_NEWER -define:UNITY_2019_2_OR_NEWER -define:UNITY_2019_3_OR_NEWER -define:UNITY_EDITOR -define:ADDRESSABLE",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "appKey": "blackforest",
+      "Unity_Version": "2019.3.6",
+      "Define": "-define:UNITY_2019",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "appKey": "jxsjorigin",
+      "Unity_Version": "2021.1.2",
+      "Define": "-define:UNITY_2020_1_OR_NEWER",
+      "FrameworkVersion": "4.5"
+    },
+    {
+      "appKey": "jxsj3",
+      "Unity_Version": "2019.4.3",
+      "Define": "-define:UNITY_2019",
+      "FrameworkVersion": "4.5"
+    }
+  ]
+}

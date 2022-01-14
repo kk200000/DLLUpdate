@@ -14,7 +14,94 @@
         <el-step title="步骤 3" icon="el-icon-picture"></el-step>
     </el-steps>
 
-    <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
+
+    <el-table id="datatable"
+              height=500
+              :key="key"
+              ref="multipleTable"
+              :data="tableData"
+              tooltip-effect="dark"
+              style="width: 80%"
+              stripe
+              @select="onTableSelect"
+              @select-all="onTableSelect"
+              @selection-change="handleSelectionChange">
+        <el-table-column
+                type="selection"
+                width="55">
+        </el-table-column>
+
+        <el-table-column
+                label="appKey"
+                sortable
+                width="120">
+            <template slot-scope="scope">
+                <el-input v-if="scope.row.edit" v-model="scope.row.appKey"
+                          @blur="leaveCell(scope.row)" v-focus></el-input>
+                <span v-else>{{ scope.row.appKey }}</span>
+            </template>
+        </el-table-column>
+
+
+        <el-table-column
+                sortable
+                prop="name"
+                label="Unity版本"
+                width="120">
+
+            <template slot-scope="scope">
+                <el-input v-if="scope.row.edit" v-model="scope.row.Unity_Version"
+                          @blur="leaveCell(scope.row)" v-focus></el-input>
+                <span v-else>{{ scope.row.Unity_Version }}</span>
+            </template>
+
+        </el-table-column>
+
+
+        <el-table-column
+                sortable
+                prop="Belong"
+                label="环境"
+                show-overflow-tooltip>
+            <template slot-scope="scope">
+                <el-select v-if="scope.row.edit" v-model="scope.row.Belong" placeholder="请选择环境...">
+                    <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+                <span v-else>{{ scope.row.Belong }} </span>
+            </template>
+        </el-table-column>
+        <el-table-column label="操作">
+            <template slot-scope="scope">
+                <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)">编辑
+                </el-button>
+                <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDelete(scope.$index, scope.row)">删除
+                </el-button>
+                <el-button
+                        size="mini"
+                        type="success"
+                        plain
+                        @click="handleAdd(scope.$index, scope.row)">复制
+                </el-button>
+            </template>
+        </el-table-column>
+
+    </el-table>
+
+    <div id="btn_group"></div>
+
+    <el-button @click="Open_DLLUpdate">打开DLL更新工具</el-button>
+    <el-button @click="SaveTable">保存</el-button>
+    <el-button @click="nextStep">下一步</el-button>
 </div>
 </body>
 
@@ -24,22 +111,127 @@
 <link rel="stylesheet" href="./element-ui/index.css">
 <script src="./element-ui/index.js"></script>
 
+
 <script type="text/javascript">
+    Vue.directive('focus', {
+        // 当被绑定的元素插入到 DOM 中时……
+        inserted: function (el) {
+            // 聚焦元素
+            el.getElementsByTagName('input')[0].focus();
+        }
+    });
     let app = new Vue({
         el: '#app',
         data() {
             return {
-                active: 0
+                active: 0,
+                tableData: [],
+                NeedSearch: [],
+                key: 0,
+                options: [{
+                    value: 'Test-Package',
+                    label: '测试环境-安装包'
+                }, {
+                    value: 'Test-Rule',
+                    label: '测试环境-规则'
+                }, {
+                    value: 'Formal-Package',
+                    label: '正式环境-安装包'
+                }, {
+                    value: 'Formal-Rule',
+                    label: '正式环境-规则'
+                }]
             };
         },
         methods: {
-            clickMe() {
-                RPC.invoke("clickMe");
+            nextStep() {
+                if (this.active++ > 2) {
+                    this.active = 0;
+                }
+                if (this.NeedSearch.length > 0) {
+                    console.log(this.NeedSearch);
+                    RPC.invoke('SendRequest', {NeedList: this.NeedSearch})
+                } else {
+                    this.$message.warning('你还没选择项目！');
+                }
+
+            },  // 步骤条下一步
+            handleAdd(index, row) {
+                for (const i of this.tableData) {
+                    if (i.edit) return this.$message.warning('请先保存当前编辑项')
+                }
+                let newrow = {
+                    "appKey": row.appKey,
+                    "Unity_Version": row.Unity_Version,
+                    "Belong": row.Belong,
+                    "edit": false
+                };
+                this.tableData.push(newrow);
             },
-            next() {
-                if (this.active++ > 2) this.active = 0;
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
+
+            onTableSelect(selection) {
+                // let selected = selection.length && selection.indexOf(row) !== -1;   // 获取是否选中 true就是选中，0就是取消选中
+                this.NeedSearch = selection;
+                console.log(this.NeedSearch);
+            },
+
+            leaveCell(row) {            // 离开单元格获取行，如需实时保存改这里
+                // row.edit = false;
+                // console.log("离开了单元格");
+            },
+
+            // 控制表格编辑
+            handleEdit(index, row) {
+                for (const i of this.tableData) {
+                    if (i.edit) return this.$message.warning('请先保存当前编辑项')
+                }
+                row.edit = true;
+            },
+
+            handleDelete(index, row) {
+                this.tableData.splice(this.tableData.indexOf(index), 1);
+            },
+
+            SaveTable() {
+                this.tableData.forEach((item) => {
+                    item.edit = false;
+                });
+                this.key++;         // Key增加以更新表格 具体看Vue官网
+                RPC.invoke('SaveDataList', {DList: this.tableData});
+
+                this.$message({
+                    type: 'success',
+                    message: '保存成功!'
+                })
+
+
+            },
+
+            Open_DLLUpdate() {
+                //有需要就加上
             }
+
+        },
+        created() {
+            // 初始化导入check_config
+            RPC.invoke("initWindow").then((res) => {
+                this.tableData = res[0];
+                console.log(res[1]);
+            }).then(() => {
+                this.tableData.forEach((item) => {
+                    item.edit = false;
+                })
+            });
+
+        },
+        mounted() {
+
         }
+
+
     })
 
 </script>

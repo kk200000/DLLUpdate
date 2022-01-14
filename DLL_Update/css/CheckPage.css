@@ -1,4 +1,14 @@
 body{
     background-color: white;
-    color: white;
+
+}
+
+#datatable{
+    min-width: 825px;
+}
+
+#btn_group{
+    display: flex;
+    margin-left: 50px;
+    margin-top: 30px;
 }

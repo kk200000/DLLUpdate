@@ -7,6 +7,7 @@ from mmgui import App, BrowserWindow
 import json
 import subprocess
 import webbrowser
+import DLL_Update.OpenCheckWindow as CheckWindow
 
 # 基础表头
 HeaderModel = ['appKey', 'UnityVersion', 'Define', '.Net_Version', 'Type']
@@ -50,17 +51,17 @@ def on_create(ctx):
     win.webview.bind_function("getIsUpload", getIsUpload)  # 获取其他更新数据
     win.webview.bind_function("getIsTest", getIsTest)  # 获取其他更新数据
     win.webview.bind_function("open_url", open_url)  # 获取其他更新数据
-    win.webview.bind_function("open_check", open_window)  # 获取其他更新数据
+    win.webview.bind_function("open_check", open_DLLCheck)
 
     win.webview.load_file(os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html"))
-    # 测试CheckPage
-    win.webview.bind_function("open_check", open_DLLCheck())
+    open_DLLCheck()  # 测试CheckPage
     # win.show()
 
 
 @run_on_ui_thread                                        # 打开窗口加上装饰器 @run_on_ui_thread
 def open_DLLCheck():
     global check_win
+    global index
     check_win = BrowserWindow({
         "title": "DLL检查工具",
         "width": 1280,
@@ -68,12 +69,11 @@ def open_DLLCheck():
         "dev_mode": True
     })
     check_win.webview.load_file(os.path.join(os.path.dirname(os.path.abspath(__file__)), "CheckPage.html"))
+    check_win.webview.bind_function("initWindow", CheckWindow.initWindow)
+    check_win.webview.bind_function("SaveDataList", CheckWindow.SaveDataList)
+    check_win.webview.bind_function("SendRequest", CheckWindow.SendRequest)
+
     check_win.show()
-
-
-def open_window():
-    global win
-    win.webview.bind_function("open_check", open_DLLCheck())  # 打开DLL检查工具
 
 
 # 监听是否测试环境
